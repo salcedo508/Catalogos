@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tumbadø Trump - External IPA Gratis</title>
+  <title>Tumbadø Trump - Catálogo IPA Premium</title>
   <style>
     :root {
       --bg-color: #000000;
@@ -796,6 +796,19 @@
     .empty-state strong { font-size:1.05rem; color:#fff; }
     .empty-state span { font-size:.88rem; color:var(--text-muted); }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; } #fx-canvas, #cursor-glow { display:none; } }
+
+    /* ===== DISCORD ===== */
+    .discord-section { display:flex; align-items:center; gap:18px; padding:22px 24px; border-radius:22px; background: var(--card-bg); border:1px solid rgba(88,101,242,.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 0 30px rgba(88,101,242,.15); }
+    .discord-icon { flex:0 0 auto; width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center; background:#5865F2; box-shadow:0 0 22px rgba(88,101,242,.55); }
+    .discord-icon svg { width:30px; height:30px; fill:#fff; }
+    .discord-info { flex:1; min-width:0; }
+    .discord-info strong { display:block; font-size:1.05rem; color:#fff; }
+    .discord-info span { font-size:.84rem; color:var(--text-muted); }
+    .btn-discord { flex:0 0 auto; display:inline-block; text-decoration:none; background:#5865F2; color:#fff; font-weight:600; font-size:.85rem; padding:10px 20px; border-radius:20px; transition: all .3s cubic-bezier(.25,1,.5,1); }
+    .btn-discord:hover { background:#6d79ff; box-shadow:0 0 24px rgba(88,101,242,.7); transform: translateY(-1px); }
+    .nav-actions { display:flex; align-items:center; gap:8px; }
+    .btn-discord-nav { text-decoration:none; display:inline-block; }
+    @media (max-width:520px) { .discord-section { flex-wrap:wrap; } .btn-discord { width:100%; text-align:center; } }
   </style>
 </head>
 <body>
@@ -818,6 +831,7 @@
         Tumbadø <span>Trump</span>
       </div>
       <div class="nav-actions">
+        <a class="btn-apple-nav btn-discord-nav" href="#discord">💬 Discord</a>
         <button class="btn-apple-nav" onclick="openAdminModal()">⚙️ Admin</button>
       </div>
     </div>
@@ -840,10 +854,10 @@
       </div>
       <div class="categories-row">
         <button class="cat-pill active" data-cat="all" onclick="setCategory('all', this)">Todos</button>
-        <button class="cat-pill" data-cat="Mod VIP" onclick="setCategory('Mod VIP', this)">external VIP</button>
+        <button class="cat-pill" data-cat="Mod VIP" onclick="setCategory('Mod VIP', this)">Mods VIP</button>
         <button class="cat-pill" data-cat="Utilidades" onclick="setCategory('Utilidades', this)">Utilidades</button>
-        <button class="cat-pill" data-cat="Juegos" onclick="setCategory('Juegos', this)">External</button>
-        <button class="cat-pill" data-cat="Social" onclick="setCategory('Social', this)">Discord</button>
+        <button class="cat-pill" data-cat="Juegos" onclick="setCategory('Juegos', this)">Juegos</button>
+        <button class="cat-pill" data-cat="Social" onclick="setCategory('Social', this)">Social</button>
       </div>
     </div>
 
@@ -856,6 +870,15 @@
           </select></span>
       </div>
       <div id="catalog-container"></div>
+    </section>
+
+    <section class="discord-section" id="discord">
+      <div class="discord-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.1.246.198.373.293a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.947 2.419-2.157 2.419z"/></svg></div>
+      <div class="discord-info">
+        <strong>Únete a nuestro Discord</strong>
+        <span>Novedades, soporte y nuevas apps antes que nadie.</span>
+      </div>
+      <a class="btn-discord" href="https://discord.gg/BEcB5XRH2" target="_blank" rel="noopener noreferrer">Unirme</a>
     </section>
       </div>
 
@@ -1005,25 +1028,72 @@ const SEED_CATALOG = [];
       { user: 'admin', pass: 'admin', role: 'Principal' }
     ];
 
+    /* ===== Archivos .ipa subidos desde el panel: se guardan en IndexedDB =====
+       (antes se usaba URL.createObjectURL, que se invalida al recargar la
+       página y por eso la descarga fallaba) */
+    const FILES_DB = 'tumbado_trump_files_v1';
+    function openFilesDB() {
+      return new Promise((res, rej) => {
+        const r = indexedDB.open(FILES_DB, 1);
+        r.onupgradeneeded = () => r.result.createObjectStore('f');
+        r.onsuccess = () => res(r.result);
+        r.onerror = () => rej(r.error);
+      });
+    }
+    async function idbOp(mode, fn) {
+      const db = await openFilesDB();
+      return new Promise((res, rej) => {
+        const tx = db.transaction('f', mode);
+        const req = fn(tx.objectStore('f'));
+        tx.oncomplete = () => { db.close(); res(req && req.result); };
+        tx.onerror = tx.onabort = () => { db.close(); rej(tx.error); };
+      });
+    }
+    const putFile = (id, blob) => idbOp('readwrite', st => st.put(blob, id));
+    const getFile = id => idbOp('readonly', st => st.get(id));
+    const delFile = id => idbOp('readwrite', st => st.delete(id)).catch(() => {});
+
+    function triggerDownload(href, name) {
+      const a = document.createElement('a');
+      a.href = href; a.download = name; a.rel = 'noopener';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+
     /* Descarga segura asignando nombre correcto con extensión .ipa */
-    function downloadIPAFile(url, fileName) {
+    async function downloadIPAFile(url, fileName, localId) {
       const cleanFileName = fileName.replace(/[^a-zA-Z0-9_-]/g, "_") + ".ipa";
 
+      /* 1) Archivo subido desde el panel: se lee de IndexedDB */
+      if (localId) {
+        try {
+          const f = await getFile(localId);
+          if (f) {
+            const blobUrl = URL.createObjectURL(new Blob([f], { type: 'application/octet-stream' }));
+            triggerDownload(blobUrl, cleanFileName);
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+            return;
+          }
+        } catch (e) {}
+        /* si no está en IndexedDB, cae a la URL guardada (si la hay) */
+      }
+
+      /* 2) Entradas viejas con blob: (solo funcionan en la misma sesión) */
       if (url && url.startsWith('blob:')) {
-        const tempAnchor = document.createElement('a');
-        tempAnchor.href = url;
-        tempAnchor.download = cleanFileName;
-        document.body.appendChild(tempAnchor);
-        tempAnchor.click();
-        document.body.removeChild(tempAnchor);
-      } else if (url && url !== '#') {
-        const a = document.createElement('a');
-        a.href = directLink(url);
-        a.download = cleanFileName;
-        a.rel = 'noopener';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        try {
+          const r = await fetch(url);
+          const b = await r.blob();
+          const blobUrl = URL.createObjectURL(new Blob([b], { type: 'application/octet-stream' }));
+          triggerDownload(blobUrl, cleanFileName);
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+        } catch (e) {
+          alert("Este archivo se subió antes de la corrección y ya no está disponible. Elimínalo y vuelve a subir el .ipa (o usa un enlace directo).");
+        }
+        return;
+      }
+
+      /* 3) Enlace externo / ruta relativa */
+      if (url && url !== '#') {
+        triggerDownload(directLink(url), cleanFileName);
       } else {
         alert("Enlace de descarga no válido o archivo en demostración.");
       }
@@ -1086,7 +1156,7 @@ const SEED_CATALOG = [];
               </div>
             </div>
           </div>
-          <button class="btn-download" onclick="downloadIPAFile(decodeURIComponent('${encodeURIComponent(item.url || '#').replace(/'/g,'%27')}'), decodeURIComponent('${encodeURIComponent(item.name).replace(/'/g,'%27')}'))">
+          <button class="btn-download" onclick="downloadIPAFile(decodeURIComponent('${encodeURIComponent(item.url || '#').replace(/'/g,'%27')}'), decodeURIComponent('${encodeURIComponent(item.name).replace(/'/g,'%27')}'), '${item.local ? escH(item.id) : ''}')">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             Obtener
           </button>
@@ -1175,35 +1245,40 @@ const SEED_CATALOG = [];
       saveUsersToStorage();
     }
 
-    function handleUploadIPA(e) {
+    async function handleUploadIPA(e) {
       e.preventDefault();
+      const form = e.target;
       const name = document.getElementById('ipa-name').value;
       const category = document.getElementById('ipa-category').value;
       const size = document.getElementById('ipa-size').value;
       const fileInput = document.getElementById('ipa-file');
       const urlInput = document.getElementById('ipa-url').value;
+      const file = fileInput.files[0];
+      const id = Date.now().toString();
 
       let downloadUrl = urlInput || '#';
+      let local = false;
 
-      if (fileInput.files.length > 0) {
-        downloadUrl = URL.createObjectURL(fileInput.files[0]);
+      if (file) {
+        try {
+          await putFile(id, file);   /* persiste el archivo real */
+          local = true;
+          downloadUrl = urlInput || '';
+        } catch (err) {
+          alert('No se pudo guardar el archivo en el navegador (¿poco espacio?). Usa un enlace directo en su lugar.');
+          return;
+        }
       }
 
-      ipaDatabase.unshift({
-        id: Date.now().toString(),
-        name: name,
-        category: category,
-        size: size,
-        url: downloadUrl,
-        badge: 'Nuevo'
-      });
+      ipaDatabase.unshift({ id, name, category, size, url: downloadUrl, local, badge: 'Nuevo' });
 
       saveToStorage();
       alert('¡IPA Publicado con éxito!');
-      e.target.reset();
+      form.reset();
     }
 
     function deleteIPA(id) {
+      delFile(id);
       ipaDatabase = ipaDatabase.filter(item => item.id !== id);
       saveToStorage();
     }
