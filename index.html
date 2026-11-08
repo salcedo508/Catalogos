@@ -668,8 +668,6 @@
     @keyframes shake { 0%,100% { transform:translateX(0);} 20%,60% { transform:translateX(-10px);} 40%,80% { transform:translateX(10px);} }
     @keyframes flashMint { 0% { box-shadow: 0 0 0 0 rgba(0,230,153,.7), 0 25px 80px rgba(0,0,0,.8);} 100% { box-shadow: 0 0 0 40px rgba(0,230,153,0), 0 25px 80px rgba(0,0,0,.8);} }
     @keyframes logIn { from { opacity:0; transform: translateX(-8px);} to { opacity:1; transform:none; } }
-
-    #code-rain { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; opacity:1; }
     .modal-card { z-index:1; animation: none; }
     .modal-overlay.active .modal-card { animation: modalIn .7s cubic-bezier(.16,1,.3,1) both; }
     .modal-overlay.active .modal-header { animation: riseIn .6s .15s cubic-bezier(.16,1,.3,1) both; }
@@ -809,6 +807,23 @@
     .nav-actions { display:flex; align-items:center; gap:8px; }
     .btn-discord-nav { text-decoration:none; display:inline-block; }
     @media (max-width:520px) { .discord-section { flex-wrap:wrap; } .btn-discord { width:100%; text-align:center; } }
+  
+    /* ===== OPTIMIZACIÓN DE RENDIMIENTO ===== */
+    body::before { mix-blend-mode: normal; }
+    #cursor-glow { mix-blend-mode: normal; display: none; }
+    .aurora-blob { filter: none; will-change: transform; animation-duration: 24s; }
+    .blob-3 { display: none; }
+    .ipa-card, .discord-section, nav { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .ipa-card { background: rgba(14, 22, 18, 0.92); will-change: auto; }
+    nav { background: rgba(10, 12, 11, 0.94); }
+    .ipa-card::before, .tag-badge, .btn-apple-nav, .search-wrapper::before { animation: none; }
+    .ipa-card:hover::before { animation: spin 4s linear infinite; }
+    .ipa-icon, .ipa-icon::before, .dz-icon, .es-icon { animation: none; }
+    .ipa-icon::before { filter: none; }
+    .btn-download, .cat-pill.active { animation: none; }
+    .btn-download:hover { animation: rgbShift 2s linear infinite; }
+    .ipa-card { animation-duration: .45s; }
+    @media (max-width: 768px) { #fx-canvas { display: none; } .aurora-blob { animation: none; } }
   </style>
 </head>
 <body>
@@ -887,7 +902,7 @@
 
   <!-- Modal Admin -->
   <div class="modal-overlay" id="admin-modal">
-    <canvas id="code-rain"></canvas>
+    
     <div class="modal-card">
       <button class="close-btn" onclick="closeAdminModal()">&times;</button>
 
@@ -1312,7 +1327,7 @@ const SEED_CATALOG = [];
       const cv = document.getElementById('fx-canvas');
       const ctx = cv.getContext('2d');
       const glow = document.getElementById('cursor-glow');
-      let W, H, dpr = Math.min(window.devicePixelRatio || 1, 2);
+      let W, H, dpr = 1;
       const parts = [], trail = [];
       const mouse = { x: -999, y: -999 };
       const mh = v => 150 + 20 * Math.sin(v);
@@ -1324,7 +1339,7 @@ const SEED_CATALOG = [];
       }
       addEventListener('resize', resize); resize();
 
-      const N = Math.min(90, Math.floor(W / 14));
+      const N = Math.min(35, Math.floor(W / 30));
       for (let i = 0; i < N; i++) parts.push({
         x: Math.random() * W, y: Math.random() * H,
         vx: (Math.random() - .5) * .4, vy: (Math.random() - .5) * .4,
@@ -1336,10 +1351,10 @@ const SEED_CATALOG = [];
         glow.style.transform = `translate(${e.clientX - 180}px, ${e.clientY - 180}px)`;
         glow.style.left = 0; glow.style.top = 0;
         trail.push({ x: e.clientX, y: e.clientY, life: 1, h: performance.now() / 300 });
-        if (trail.length > 60) trail.shift();
+        if (trail.length > 20) trail.shift();
       });
       addEventListener('click', e => {
-        for (let i = 0; i < 18; i++) {
+        for (let i = 0; i < 8; i++) {
           const a = Math.random() * Math.PI * 2, sp = Math.random() * 3 + 1;
           parts.push({ x: e.clientX, y: e.clientY, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, r: Math.random() * 2.5 + 1, h: Math.random() * 360, burst: 1 });
         }
@@ -1363,11 +1378,9 @@ const SEED_CATALOG = [];
           }
           ctx.beginPath();
           ctx.fillStyle = `hsla(${mh(p.h)},100%,${60 + 15 * Math.sin(p.h * .1)}%,${p.burst || .85})`;
-          ctx.shadowColor = `hsl(${mh(p.h)},100%,60%)`; ctx.shadowBlur = 12;
-          ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill();
+                    ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill();
         }
-        ctx.shadowBlur = 0;
-
+        
         // líneas entre partículas cercanas
         for (let i = 0; i < parts.length; i++) {
           if (parts[i].burst) continue;
@@ -1390,8 +1403,9 @@ const SEED_CATALOG = [];
           ctx.fillStyle = `hsla(${mh(q.h)},100%,65%,${q.life * .7})`;
           ctx.arc(q.x, q.y, 10 * q.life, 0, 7); ctx.fill();
         }
-        requestAnimationFrame(frame);
+        if (!document.hidden) requestAnimationFrame(frame);
       }
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) requestAnimationFrame(frame); });
       frame();
     })();
 
@@ -1435,45 +1449,13 @@ const SEED_CATALOG = [];
 
     /* ===== ADMIN: lluvia de símbolos, efectos y UI ===== */
     (function () {
-      const cv = document.getElementById('code-rain'), cx = cv.getContext('2d');
-      const CH = '{}[]()<>;:=+-*/&|!?#01$%@~'.split('');
-      const WORDS = ['int','fn','def','func','let','C++','->','::','=>','0x','new','Go','Rs','Py'];
-      let cols = [], raf = 0, W = 0, H = 0, running = false;
-      function sizeRain() {
-        const r = cv.parentElement.getBoundingClientRect();
-        const dpr = Math.min(devicePixelRatio || 1, 2);
-        W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        cols = Array.from({ length: Math.floor(W / 22) }, (_, i) => ({
-          x: i * 22 + 6, y: Math.random() * -H, v: 1 + Math.random() * 2.2,
-          t: Array.from({ length: 14 }, () => Math.random() < .12 ? WORDS[Math.random() * WORDS.length | 0] : CH[Math.random() * CH.length | 0])
-        }));
-      }
-      function rain() {
-        cx.clearRect(0, 0, W, H);
-        cx.font = '13px ui-monospace, Menlo, Consolas, monospace';
-        for (const c of cols) {
-          c.y += c.v;
-          for (let k = 0; k < c.t.length; k++) {
-            const y = c.y - k * 16;
-            if (y < -16 || y > H + 16) continue;
-            cx.fillStyle = k === 0 ? 'rgba(224,255,244,.95)' : 'rgba(0,230,153,' + (0.85 * (1 - k / c.t.length)).toFixed(3) + ')';
-            cx.fillText(c.t[k], c.x, y);
-          }
-          if (Math.random() < .04) c.t[Math.random() * c.t.length | 0] = CH[Math.random() * CH.length | 0];
-          if (c.y - c.t.length * 16 > H) { c.y = Math.random() * -200; c.v = 1 + Math.random() * 2.2; }
-        }
-        raf = requestAnimationFrame(rain);
-      }
       const card = document.querySelector('.modal-card');
       function pulse(cls) { card.classList.remove('shake', 'flash'); void card.offsetWidth; card.classList.add(cls); setTimeout(() => card.classList.remove(cls), 950); }
-      function start() { if (running) return; running = true; sizeRain(); raf = requestAnimationFrame(rain); }
-      function stop() { running = false; cancelAnimationFrame(raf); }
-      addEventListener('resize', () => running && sizeRain());
-
+                  
       const esc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
       const _open = openAdminModal, _close = closeAdminModal, _login = handleLogin, _up = handleUploadIPA;
-      openAdminModal = function () { _open(); setTimeout(start, 30); };
-      closeAdminModal = function () { _close(); setTimeout(stop, 450); };
+      openAdminModal = function () { _open(); };
+      closeAdminModal = function () { _close(); };
       handleLogin = function (e) {
         const u = document.getElementById('username').value.trim(), p = document.getElementById('password').value.trim();
         pulse(adminUsers.some(x => x.user === u && x.pass === p) ? 'flash' : 'shake');
