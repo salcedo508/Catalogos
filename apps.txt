@@ -1,0 +1,18 @@
+# ================================================
+#  LISTA DE APPS  (todos los que entren la verán)
+# ================================================
+#  Escribe UNA app por línea con este formato:
+#
+#  Nombre | Categoría | Tamaño | Enlace | Etiqueta (opcional)
+#
+#  Categorías: Mod VIP, Utilidades, Juegos, Social
+#  Enlace de Dropbox: pégalo tal cual, se convierte solo en descarga directa.
+#  Las líneas que empiezan con # se ignoran.
+#
+#  Ejemplos (borra el # del inicio para activarlos):
+#
+# Mi App Genial | Juegos | 145 MB | https://www.dropbox.com/s/abc123/mi-app.ipa?dl=0 | Nuevo
+# Super Utilidad | Utilidades | 60 MB | https://www.dropbox.com/s/xyz789/util.ipa?dl=0
+#
+# ================================================
+
